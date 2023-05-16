@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.example.cleanarch.R
 import com.example.cleanarch.data.repository.UserRepositoryImpl
+import com.example.cleanarch.data.storage.sharedprefs.SharedPrefUserStorage
 import com.example.cleanarch.domain.models.SaveUserNameParam
 import com.example.cleanarch.domain.models.UserName
 import com.example.cleanarch.domain.usecase.GetUserNameUseCase
@@ -13,7 +14,7 @@ import com.example.cleanarch.domain.usecase.SaveUserNameUseCase
 
 class MainActivity : AppCompatActivity() {
 
-    private val userRepository by lazy(LazyThreadSafetyMode.NONE) { UserRepositoryImpl(context = applicationContext) }
+    private val userRepository by lazy { UserRepositoryImpl(userStorage = SharedPrefUserStorage(context = applicationContext)) }
     private val getUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) { GetUserNameUseCase(userRepository = userRepository) }
     private val saveUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) { SaveUserNameUseCase(userRepository = userRepository) }
 
