@@ -14,9 +14,23 @@ import com.example.cleanarch.domain.usecase.SaveUserNameUseCase
 
 class MainActivity : AppCompatActivity() {
 
-    private val userRepository by lazy { UserRepositoryImpl(userStorage = SharedPrefUserStorage(context = applicationContext)) }
-    private val getUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) { GetUserNameUseCase(userRepository = userRepository) }
-    private val saveUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) { SaveUserNameUseCase(userRepository = userRepository) }
+    private val userRepository by lazy(LazyThreadSafetyMode.NONE){
+        UserRepositoryImpl(
+            userStorage = SharedPrefUserStorage(
+                context = applicationContext
+            )
+        )
+    }
+    private val getUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) {
+        GetUserNameUseCase(
+            userRepository = userRepository
+        )
+    }
+    private val saveUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) {
+        SaveUserNameUseCase(
+            userRepository = userRepository
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +51,6 @@ class MainActivity : AppCompatActivity() {
         getData.setOnClickListener {
             val userName: UserName = getUserNameUseCase.execute()
             textView.text = "${userName.firstName} ${userName.lastName}"
-
         }
-
     }
 }
