@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         val getData = findViewById<Button>(R.id.getData)
         val setData = findViewById<Button>(R.id.setData)
 
-        vm.getResultLive().observe(this, Observer { text ->
+        vm.resultLive.observe(this, Observer { text ->
             textView.text = text
         })
 

@@ -10,34 +10,33 @@ import com.example.cleanarch.domain.usecase.GetUserNameUseCase
 import com.example.cleanarch.domain.usecase.SaveUserNameUseCase
 
 class MainViewModel(
-    private val getUserNameUseCase:GetUserNameUseCase,
-    private val saveUserNameUseCase:SaveUserNameUseCase
-    ) : ViewModel() {
+    private val getUserNameUseCase: GetUserNameUseCase,
+    private val saveUserNameUseCase: SaveUserNameUseCase
+) : ViewModel() {
 // ViewModel не должна иметь контекст!!!!!
 
-    private val resultLive = MutableLiveData<String>()
+    private val resultLiveMutable = MutableLiveData<String>()
+    val resultLive: LiveData<String> = resultLiveMutable
 
-init{
-    Log.e("AAA","VM created")}
+
+    init {
+        Log.e("AAA", "VM created")
+    }
 
     override fun onCleared() {
-        Log.e("AAA","VM cleared")
+        Log.e("AAA", "VM cleared")
         super.onCleared()
     }
 
-    fun getResultLive():LiveData<String>{
-        return resultLive
-    }
-
-    fun save(text:String){
+    fun save(text: String) {
         val params = SaveUserNameParam(name = text)
         val resultData: Boolean = saveUserNameUseCase.execute(param = params)
-        resultLive.value = "Save result = $resultData"
+        resultLiveMutable.value = "Save result = $resultData"
     }
 
-    fun load(){
+    fun load() {
         val userName: UserName = getUserNameUseCase.execute()
-        resultLive.value = "${userName.firstName} ${userName.lastName}"
+        resultLiveMutable.value = "${userName.firstName} ${userName.lastName}"
     }
 
 }
