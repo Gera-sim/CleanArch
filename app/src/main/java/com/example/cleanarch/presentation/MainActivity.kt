@@ -6,12 +6,12 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.cleanarch.R
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var vm:MainViewModel
+    private val vm by viewModel<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,11 +19,6 @@ class MainActivity : AppCompatActivity() {
 
         Log.e("AAA","Activity created")
 
-//        1 способ создания (не правильный)
-//        vm = MainViewModel()
-//        2 способ создания (правильный)
-        vm = ViewModelProvider(this, MainViewModelFactory(this))
-            .get(MainViewModel::class.java)
 
         val textView = findViewById<TextView>(R.id.textView)
         val editText = findViewById<TextView>(R.id.editText)
