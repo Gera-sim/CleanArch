@@ -1,7 +1,3 @@
 <resources>
     <string name="app_name">CleanArch</string>
-    <string name="no_data">No data</string>
-    <string name="get_data">Get data</string>
-    <string name="put_text_here">Put text here</string>
-    <string name="set_data">Set data</string>
 </resources>
